@@ -1,7 +1,5 @@
 package frame;
 
-import java.lang.Thread.State;
-
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.application.Application;
@@ -31,7 +29,7 @@ public class Login extends Application{
 		
 		Scene scene = new Scene(stackPane, 1000, 500);
 		
-		Image image = new Image("/image/login-bg/0e.jpg");
+		Image image = new Image("images/login-bg/0e.jpg");
 		ImageView imageView = new ImageView(image);
 		imageView.setFitHeight(500);
 		imageView.setFitWidth(1000);
@@ -101,5 +99,7 @@ public class Login extends Application{
 	
 	public static void main(String [] args){
 		Application.launch(args);
+		//MainFrame mf=new MainFrame();
+		//mf.setVisible(true);
 	}
 }

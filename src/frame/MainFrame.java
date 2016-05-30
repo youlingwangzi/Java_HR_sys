@@ -1,14 +1,23 @@
 package frame;
 
+/**
+ * 1¡¢²Ëµ¥×é¼ş
+    	JMenuBar	²Ëµ¥Ìõ×é¼ş	Ê÷¸É
+    	JMenu		²Ëµ¥×é¼ş	Ê÷Ö¦
+    	JMenuItem	²Ëµ¥Ïî×é¼ş	Ê÷Ò¶
+	2¡¢¶ş¼¶²Ëµ¥ÖÆ×÷
+    	JMenuÀïÃæ¿ÉÒÔÇ¶Ì×JMenu
+	3¡¢¹¤¾ßÌõ×é¼ş
+    	JToolBar	ÈİÆ÷Àà×é¼ş
+ */
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import dao.DeptDao;
@@ -17,59 +26,233 @@ import dao.StaffDao;
 import entity.Dept;
 import entity.Job;
 import entity.staff;
-
-@SuppressWarnings("serial")
 public class MainFrame extends JFrame{
+	//ÎÄ¼ş×é¶¨Òå×é¼ş
+	JMenuBar jmb;//²Ëµ¥Ìõ×é¼ş
+	JMenu menu1,menu2,menu3,menu4,menu5;//Ö÷²Ëµ¥£ºÎÄ¼ş¡¢±à¼­¡¢¸ñÊ½¡¢²é¿´¡¢°ïÖú
+	JMenuItem item2,item3,item4,item5,item6,item7;//×Ó²Ëµ¥£ºĞÂ½¨¡¢´ò¿ª¡¢±£´æ¡¢Áí´æÎª¡¢Ò³ÃæÉèÖÃ¡¢´òÓ¡¡¢ÍË³ö
+	JMenu xinjian;//¶ş¼¶²Ëµ¥
+	JMenuItem file,project;
+	
+	//±à¼­×é¶¨Òå×é¼ş
+	//±à¼­£º³·Ïû¡¢¼ôÇĞ¡¢¸´ÖÆ¡¢Õ³Ìù¡¢É¾³ı¡¢²éÕÒ¡¢²éÕÒÏÂÒ»¸ö¡¢Ìæ»»¡¢×ªµ½¡¢È«Ñ¡¡¢Ê±¼ä/ÈÕÆÚ
+	JMenuItem eitem1,eitem2,eitem3,eitem4,eitem5,eitem6,eitem7,eitem8,eitem9,eitem10,eitem11;
+	
+	//¸ñÊ½×é¶¨Òå×é¼ş
+	JMenuItem oitem1,oitem2;//¸ñÊ½£º×Ô¶¯»»ĞĞ¡¢×ÖÌå
+	
+	//²é¿´×é¶¨Òå×é¼ş
+	JMenuItem vitem1;//²é¿´£º×´Ì¬À¸
+	
+	//°ïÖú×é¶¨Òå×é¼ş
+	JMenuItem hitem1,hitem2;//°ïÖú£º²é¿´°ïÖú¡¢¹ØÓÚ¼ÇÊÂ±¾
+	
+	JTextArea jta;
+	//¹¤¾ßÌõ
+	JToolBar jtb;
+	JButton jb1,jb2,jb3,jb4,jb5,jb6,jb7,jb8;
 	private JTable tab;
-	private JScrollPane sp;
 	private DefaultTableModel dtm;
-	private JButton btnAdd1;
-	private JButton btnAdd2;
-	private JButton btnAdd3;
-	private JButton btnAdd4;
-	private JButton btnAdd5;
 	private List staffList;
+	private Object[][]rowData;
 	private List<Dept> deptList;
 	private List<Job> jobList;
-	private Object[][]rowData;
-	
+
+	//¹¹Ôìº¯Êı
 	public MainFrame(){
-		this.setTitle("äººäº‹ç®¡ç†ç³»ç»Ÿ");
-		this.setBounds(100, 100, 800, 600);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//¹¹½¨×é¼ş
+		//¹¤¾ßÌõ
+
+        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/image/icon.png"));
+		this.setIconImage(imageIcon.getImage());
+		jtb=new JToolBar(JToolBar.VERTICAL);
+		jb1=new JButton("Ìí¼ÓÔ±¹¤");
+		jb1.setToolTipText("ĞÂ½¨");//ÉèÖÃÌáÊ¾ĞÅÏ¢
+		jb2=new JButton("É¾³ıÔ±¹¤");
+		jb2.setToolTipText("´ò¿ª");
+		jb3=new JButton("±à¼­Ô±¹¤");
+		jb3.setToolTipText("±£´æ");
+		jb4=new JButton(" Ë¢ ĞÂ ");
+		jb4.setToolTipText("¸´ÖÆ");
+		jb5=new JButton(" ÍË ³ö ");
+		jb5.setToolTipText("É¾³ı");
+		jb6=new JButton(new ImageIcon("/image/4.png"));
+		jb6.setToolTipText("±à¼­");
+		jb7=new JButton(new ImageIcon("/image/4.png"));
+		jb7.setToolTipText("´òÓ¡");
+		jb8=new JButton(new ImageIcon("/image/4.png"));
+		jb8.setToolTipText("¹Ø±Õ");
 		
-		this.setLayout(null);
+		jmb=new JMenuBar();
+		//Ö÷²Ëµ¥
+		menu1=new JMenu("ÎÄ¼ş(F)");
+		menu1.setMnemonic('F');//ÉèÖÃÖú¼Ç·û
+		menu2=new JMenu("±à¼­(E)");
+		menu2.setMnemonic('E');
+		menu3=new JMenu("¸ñÊ½(O)");
+		menu3.setMnemonic('O');
+		menu4=new JMenu("²é¿´(V)");
+		menu4.setMnemonic('V');
+		menu5=new JMenu("°ïÖú(H)");
+		menu5.setMnemonic('H');
 		
+		//ÎÄ¼ş--ĞÂ½¨--×ÓÄ¿Â¼
+		xinjian=new JMenu("ĞÂ½¨");
+		file=new JMenuItem("ÎÄ¼ş");
+		project=new JMenuItem("¹¤³Ì");
+		
+		item2=new JMenuItem("´ò¿ª(O)");
+		item2.setMnemonic('O');
+		item2.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O,InputEvent.CTRL_MASK));//ÉèÖÃctrl¿ì½İ×éºÏ¼ü
+		item3=new JMenuItem("±£´æ(S)");
+		item3.setMnemonic('S');
+		item3.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,InputEvent.CTRL_MASK));
+		item4=new JMenuItem("Áí´æÎª(A)");
+		item4.setMnemonic('A');
+		item5=new JMenuItem("Ò³ÃæÉèÖÃ(U)");
+		item5.setMnemonic('U');
+		item6=new JMenuItem("´òÓ¡(P)");
+		item6.setMnemonic('P');
+		item6.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P,InputEvent.CTRL_MASK));
+		item7=new JMenuItem("ÍË³ö(X)");
+		item7.setMnemonic('X');
+		
+		eitem1=new JMenuItem("³·Ïû(U)");
+		eitem1.setMnemonic('U');
+		eitem1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U,InputEvent.CTRL_MASK));
+		eitem2=new JMenuItem("¼ôÇĞ(T)");
+		eitem2.setMnemonic('T');
+		eitem2.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T,InputEvent.CTRL_MASK));
+		eitem3=new JMenuItem("¸´ÖÆ(C)");
+		eitem3.setMnemonic('C');
+		eitem3.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,InputEvent.CTRL_MASK));
+		eitem4=new JMenuItem("Õ³Ìù(P)");
+		eitem4.setMnemonic('P');
+		eitem4.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P,InputEvent.CTRL_MASK));
+		eitem5=new JMenuItem("É¾³ı(L)");
+		eitem5.setMnemonic('L');
+		eitem5.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE,0));
+		eitem6=new JMenuItem("²éÕÒ(F)");
+		eitem6.setMnemonic('F');
+		eitem6.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F,InputEvent.CTRL_MASK));
+		eitem7=new JMenuItem("²éÕÒÏÂÒ»¸ö(N)");
+		eitem7.setMnemonic('N');
+		eitem7.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F3,0));
+		eitem8=new JMenuItem("Ìæ»»(R)");
+		eitem8.setMnemonic('R');
+		eitem8.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R,InputEvent.CTRL_MASK));
+		eitem9=new JMenuItem("×ªµ½(G)");
+		eitem9.setMnemonic('G');
+		eitem9.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_G,InputEvent.CTRL_MASK));
+		eitem10=new JMenuItem("È«Ñ¡(A)");
+		eitem10.setMnemonic('A');
+		eitem10.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A,InputEvent.CTRL_MASK));
+		eitem11=new JMenuItem("Ê±¼ä/ÈÕÆÚ(D)");
+		eitem11.setMnemonic('D');
+		eitem11.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F5,0));
+		
+		oitem1=new JMenuItem("×Ô¶¯»»ĞĞ(W)");
+		oitem1.setMnemonic('W');
+		oitem2=new JMenuItem("×ÖÌå(F)");
+		oitem2.setMnemonic('F');
+		
+		vitem1=new JMenuItem("×´Ì¬À¸(S)");
+		vitem1.setMnemonic('S');
+		
+		hitem1=new JMenuItem("²é¿´°ïÖú(H)");
+		hitem1.setMnemonic('H');
+		hitem2=new JMenuItem("¹ØÓÚ¼ÇÊÂ±¾(A)");
+		hitem2.setMnemonic('A');
+		
+		jta=new JTextArea();
+		
+		//Éè¶¨²¼¾Ö¹ÜÀíÆ÷
+		
+		//¼ÓÈë×é¼ş
+		//½«°´Å¥Ìí¼Óµ½¹¤¾ßÌõÉÏ
+		jtb.add(jb1);
+		jtb.add(jb2);
+		jtb.add(jb3);
+		jtb.add(jb4);
+		jtb.add(jb5);
+		jtb.add(jb6);
+		jtb.add(jb7);
+		jtb.add(jb8);
+		
+		//½«²Ëµ¥ÏîÌí¼Óµ½²Ëµ¥ÉÏ
+		xinjian.add(file);
+		xinjian.add(project);
+		
+		menu1.add(xinjian);
+		menu1.add(item2);
+		menu1.add(item3);
+		menu1.add(item4);
+		menu1.addSeparator();//Ìí¼Ó·Ö¸îÏß
+		menu1.add(item5);
+		menu1.add(item6);
+		menu1.addSeparator();
+		menu1.add(item7);
+		
+		menu2.add(eitem1);
+		menu2.addSeparator();
+		menu2.add(eitem2);
+		menu2.add(eitem3);
+		menu2.add(eitem4);
+		menu2.add(eitem5);
+		menu2.addSeparator();
+		menu2.add(eitem6);
+		menu2.add(eitem7);
+		menu2.add(eitem8);
+		menu2.add(eitem9);
+		menu2.addSeparator();
+		menu2.add(eitem10);
+		menu2.add(eitem11);
+		
+		menu3.add(oitem1);
+		menu3.add(oitem2);
+		
+		menu4.add(vitem1);
+		
+		menu5.add(hitem1);
+		menu5.addSeparator();
+		menu5.add(hitem2);
+		
+		//½«²Ëµ¥Ìí¼Óµ½²Ëµ¥ÌõÉÏ
+		jmb.add(menu1);
+		jmb.add(menu2);
+		jmb.add(menu3);
+		jmb.add(menu4);
+		jmb.add(menu5);
+		
+		//½«²Ëµ¥ÌõÌí¼Óµ½´°ÌåÉÏ
+		this.setJMenuBar(jmb);
+		
+		//½«¹¤¾ßÌõÌí¼Óµ½´°ÌåÉÏ
+		this.add(jtb,BorderLayout.WEST);
+		
+		//jsp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		//this.add(jsp);
+		
+		dtm=new DefaultTableModel(null,new String[]{"ĞòºÅ","Ô±¹¤±àºÅ","ĞÕÃû","²¿ÃÅ","Ö°Îñ","±¸×¢"});
 		StaffDao dao=new StaffDao();
 		staffList=dao.getList();
-		
-		dtm=new DefaultTableModel(null,new String[]{"åºå·","å‘˜å·¥ç¼–å·","å§“å","éƒ¨é—¨","èŒåŠ¡","å¤‡æ³¨"});
 		for(int i=0;i<staffList.size();i++){
 			staff s=(staff)staffList.get(i);
 			dtm.addRow(new Object[]{i+1,s.getStaffId(),s.getStaffName(),s.getDept().getDeptName(),s.getJob().getJobName(),s.getDetail()});
 		}
+		tab = new JTable(dtm);
+		JScrollPane jsp=new JScrollPane(tab);
+		jsp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		this.add(jsp);
 		
-		tab=new JTable(dtm);
-		sp=new JScrollPane(tab);
-		sp.setBounds(45, 30, 550, 500);
-		this.add(sp);
-		
-		btnAdd1=new JButton("æ·»åŠ å‘˜å·¥");
-		btnAdd1.setBounds(650, 100, 100, 30);
-		this.add(btnAdd1);
-		btnAdd2=new JButton("åˆ é™¤å‘˜å·¥");
-		btnAdd2.setBounds(650, 150, 100, 30);
-		this.add(btnAdd2);
-		btnAdd3=new JButton("ç¼–è¾‘å‘˜å·¥");
-		btnAdd3.setBounds(650, 200, 100, 30);
-		this.add(btnAdd3);
-		btnAdd4=new JButton("åˆ·æ–°");
-		btnAdd4.setBounds(650, 250, 100, 30);
-		this.add(btnAdd4);
-		btnAdd5=new JButton("é€€å‡º");
-		btnAdd5.setBounds(650, 300, 100, 30);
-		this.add(btnAdd5);
-		btnAdd1.addActionListener(
+		//´°ÌåÉèÖÃ
+		this.setTitle("ĞÅÏ¢Ñ§ÔºÑ§Éúµ³Ö§²¿ÈËÊÂ¹ÜÀíÏµÍ³");
+		this.setSize(700, 600);
+		this.setLocationRelativeTo(null);
+		this.setVisible(true);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
+	
+		jb1.addActionListener(
 				new ActionListener(){
 					public void actionPerformed(ActionEvent e){
 						insert info=new insert();
@@ -77,11 +260,10 @@ public class MainFrame extends JFrame{
 					}
 				}
 			);
-		btnAdd2.addActionListener(
+		jb2.addActionListener(
 				new ActionListener(){
 					public void actionPerformed(ActionEvent e){
-						
-						int [] sel=tab.getSelectedRows();
+					int [] sel=tab.getSelectedRows();
 					if(sel.length==1){
 						for(int i=0;i<sel.length;i++){
 							int id=Integer.parseInt(tab.getValueAt(sel[i], 1).toString());
@@ -91,25 +273,24 @@ public class MainFrame extends JFrame{
 							MainFrame mf=new MainFrame();
 							mf.setVisible(true);
 							dispose();
-								
 						}
 					}
 					else 
-						JOptionPane.showMessageDialog(null,"è¯·é€‰æ‹©åˆ é™¤å¯¹è±¡ï¼","è­¦å‘Š" ,JOptionPane.INFORMATION_MESSAGE);
-						
+						JOptionPane.showMessageDialog(null,"ÇëÑ¡ÔñÉ¾³ı¶ÔÏó£¡",
+								"¾¯¸æ" ,JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
 			);
-		btnAdd3.addActionListener(
+		jb3.addActionListener(
 				new ActionListener(){
 					public void actionPerformed(ActionEvent e){
 						int sel=tab.getSelectedRow();
-					if(sel!=-1){
-						DeptDao deptdao=new DeptDao();
-						deptList=deptdao.getList();
-						JobDao jobdao=new JobDao();
-						jobList=jobdao.getList();
-						
+						if(sel!=-1){
+							DeptDao deptdao=new DeptDao();
+							deptList=deptdao.getList();
+							JobDao jobdao=new JobDao();
+							jobList=jobdao.getList();
+							
 							int id=Integer.parseInt(tab.getValueAt(sel, 1).toString());
 							String name=tab.getValueAt(sel,2).toString();
 							Dept dept1=new Dept();
@@ -117,8 +298,7 @@ public class MainFrame extends JFrame{
 								if(dept.getDeptName().equals (tab.getValueAt(sel, 3).toString())){
 									dept1=dept;
 									break;
-								
-							}
+								}
 							}
 							
 							Job job1=new Job();
@@ -133,16 +313,13 @@ public class MainFrame extends JFrame{
 							edit info=new edit(Staff);
 							info.setVisible(true);
 						}
-					else
-						JOptionPane.showMessageDialog(null,"è¯·é€‰æ‹©ç¼–è¾‘å¯¹è±¡ï¼","è­¦å‘Š" ,JOptionPane.INFORMATION_MESSAGE);
+						else
+							JOptionPane.showMessageDialog(null,"ÇëÑ¡Ôñ±à¼­¶ÔÏó£¡","¾¯¸æ" ,JOptionPane.INFORMATION_MESSAGE);
 						
-					}
-					
-							
+					}		
 				}
-				
 			);
-		btnAdd4.addActionListener(
+		jb4.addActionListener(
 				new ActionListener(){
 					public void actionPerformed(ActionEvent e){
 						int rowCnt=dtm.getRowCount();
@@ -156,31 +333,30 @@ public class MainFrame extends JFrame{
 					}
 				}
 			);
-		btnAdd5.addActionListener(
+		jb5.addActionListener(
 				new ActionListener(){
 					public void actionPerformed(ActionEvent e){
 						System.exit(0);
 					}
 				}
 			);
-	}
-	public int setRowData(){
-		int row;
-		StaffDao dao=new StaffDao();
-		staffList=dao.getList();
-		row=staffList.size();
-		rowData=new Object[row][6];
-		for(int i=0;i<row;i++){
-			rowData[i][0]=i+1;
-			staff s=(staff)staffList.get(i);
-			rowData[i][1]=s.getStaffId();
-			rowData[i][2]=s.getStaffName();
-			rowData[i][3]=s.getDept().getDeptName();
-			rowData[i][4]=s.getJob().getJobName();
-			rowData[i][5]=s.getDetail();
 		}
-		return row;
-	}
+		public int setRowData(){
+			int row;
+			StaffDao dao=new StaffDao();
+			staffList=dao.getList();
+			row=staffList.size();
+			rowData=new Object[row][6];
+			for(int i=0;i<row;i++){
+				rowData[i][0]=i+1;
+				staff s=(staff)staffList.get(i);
+				rowData[i][1]=s.getStaffId();
+				rowData[i][2]=s.getStaffName();
+				rowData[i][3]=s.getDept().getDeptName();
+				rowData[i][4]=s.getJob().getJobName();
+				rowData[i][5]=s.getDetail();
+			}
+			return row;
+		}
 }
-	
-	
+
