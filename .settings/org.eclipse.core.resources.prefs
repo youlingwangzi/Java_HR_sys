@@ -1,0 +1,12 @@
+eclipse.preferences.version=1
+encoding//src/dao/BaseDao.java=UTF-8
+encoding//src/dao/DeptDao.java=UTF-8
+encoding//src/dao/JobDao.java=UTF-8
+encoding//src/dao/StaffDao.java=UTF-8
+encoding//src/entity/Dept.java=UTF-8
+encoding//src/entity/Job.java=UTF-8
+encoding//src/entity/staff.java=UTF-8
+encoding//src/frame/MainFrame.java=UTF-8
+encoding//src/frame/Save.java=UTF-8
+encoding//src/frame/edit.java=UTF-8
+encoding//src/frame/insert.java=UTF-8
