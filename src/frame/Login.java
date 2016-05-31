@@ -1,5 +1,7 @@
 package frame;
 
+import com.sun.awt.AWTUtilities;
+
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.application.Application;
