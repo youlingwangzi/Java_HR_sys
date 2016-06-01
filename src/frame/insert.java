@@ -97,7 +97,7 @@ public class insert extends JFrame{
 								dept1=dept;
 								break;
 							
-						}
+							}
 						}
 						Job job1=new Job();
 						for(Job job:jobList){
@@ -114,6 +114,7 @@ public class insert extends JFrame{
 							dispose();
 							
 						}
+						//mainFrame = new MainFrame();
 					}
 				}
 			);

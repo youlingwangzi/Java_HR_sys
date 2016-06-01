@@ -100,8 +100,8 @@ public class Login extends Application{
 	}
 	
 	public static void main(String [] args){
-		Application.launch(args);
-		//MainFrame mf=new MainFrame();
-		//mf.setVisible(true);
+		//Application.launch(args);
+		MainFrame mf=new MainFrame();
+		mf.setVisible(true);
 	}
 }
