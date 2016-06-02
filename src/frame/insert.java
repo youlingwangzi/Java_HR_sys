@@ -1,9 +1,12 @@
 package frame;
 
+import java.awt.Color;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -33,24 +36,39 @@ public class insert extends JFrame{
 	private JComboBox comb1;
 	private List<Dept> deptList;
 	private List<Job> jobList;
-	
+
+	private JLabel titlePicture;
 	private String[] item={"--请选择--"}; 
 	
 	public insert(){
+		ImageIcon imageIcon = new ImageIcon(getClass().getResource("/images/icon.png"));
+		this.setIconImage(imageIcon.getImage());
+		//this.setUndecorated(true);
+
+		FrameListener frameListener = new FrameListener(this);
+		addMouseListener(frameListener);
+		addMouseMotionListener(frameListener);  
+		
 		this.setTitle("添加新员工");
-		this.setBounds(100, 100, 400, 450);
+		this.setBounds(500, 200, 310, 400);
+		
+		titlePicture = new JLabel();
+		titlePicture.setIcon(new ImageIcon(getClass().getResource("/images/insert_title.png")));
+		titlePicture.setMaximumSize(getSize());
+		titlePicture.setBounds(0, 0, 300, 40);
+		this.add(titlePicture);
 		
 		this.setLayout(null);
 		lab=new JLabel("姓     名: ");
-		lab.setBounds(50, 30, 100, 50);
+		lab.setBounds(20, 45, 100, 50);
 		this.add(lab);
 		txt=new JTextField();
-		txt.setBounds(110, 30, 200, 30);
+		txt.setBounds(90, 55, 190, 30);
 		this.add(txt);
 		
 		
 		lab=new JLabel("部     门: ");
-		lab.setBounds(50, 100, 100, 30);
+		lab.setBounds(20, 100, 100, 30);
 		this.add(lab);
 		comb=new JComboBox(item);
 		DeptDao deptDao=new DeptDao();
@@ -58,11 +76,11 @@ public class insert extends JFrame{
 		for(Dept dept:deptList){
 			comb.addItem(dept.getDeptName());
 		}
-		comb.setBounds(110, 100, 200, 30);
+		comb.setBounds(90, 100, 190, 30);
 		this.add(comb);
 	
 		lab=new JLabel("职     务: ");
-		lab.setBounds(50, 150, 100, 30);
+		lab.setBounds(20, 150, 100, 30);
 		this.add(lab);
 		comb1=new JComboBox(item);
 		JobDao jobDao=new JobDao();
@@ -70,21 +88,21 @@ public class insert extends JFrame{
 		for(Job job:jobList){
 			comb1.addItem(job.getJobName());
 		}
-		comb1.setBounds(110, 150, 200, 30);
+		comb1.setBounds(90, 150, 190, 30);
 		this.add(comb1);
 		
 		lab=new JLabel("备     注: ");
-		lab.setBounds(50, 200, 100, 30);
+		lab.setBounds(20, 200, 100, 30);
 		this.add(lab);
 		txt1=new JTextArea();
 		txt1.setLineWrap(true);
 		scrollpane=new JScrollPane(txt1);
-		scrollpane.setBounds(110, 200, 200, 100);
+		scrollpane.setBounds(90, 200, 190, 100);
 		this.add(scrollpane);
 		
 		
 		btnAdd=new JButton("保存");
-		btnAdd.setBounds(60, 320, 100, 30);
+		btnAdd.setBounds(30, 320, 100, 30);
 		this.add(btnAdd);
 		btnAdd.addActionListener(
 				new ActionListener(){
@@ -121,7 +139,7 @@ public class insert extends JFrame{
 		
 		
 		btnAdd1=new JButton("退出");
-		btnAdd1.setBounds(200,320, 100, 30);
+		btnAdd1.setBounds(160,320, 100, 30);
 		this.add(btnAdd1);
 		btnAdd1.addActionListener(
 				new ActionListener(){

@@ -60,21 +60,20 @@ public class MainFrame extends JFrame{
 	public MainFrame(){
 		//构建组件
 		//工具条
-		MainFrame mainFrame = this;
         ImageIcon imageIcon = new ImageIcon(getClass().getResource("/images/icon.png"));
 		this.setIconImage(imageIcon.getImage());
 		//AWTUtilities.setWindowOpaque(this, false);
 		this.setUndecorated(true);
 		this.setLayout(layout = new GridBagLayout());
+
+		frameListener = new FrameListener(this);
+		addMouseListener(frameListener);
+		addMouseMotionListener(frameListener);  
 		
 		init();
 		addControls();
 		setLayout();
 		addListener();
-
-		frameListener = new FrameListener(this);
-		addMouseListener(frameListener);
-		addMouseMotionListener(frameListener);  
 		
 		//窗体设置
 		this.setTitle("信息学院学生党支部人事管理系统");
@@ -438,7 +437,7 @@ public class MainFrame extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO 自动生成的方法存根
-					
+					new Help();
 				}
 			});
 			hitem2.addActionListener(new ActionListener() {
@@ -446,7 +445,8 @@ public class MainFrame extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					// TODO 自动生成的方法存根
-					
+					JOptionPane.showMessageDialog(null,"信息学院学生党支部人事管理系统\nV1.0\n开发者：幽灵王子",
+							"关于本系统" ,JOptionPane.INFORMATION_MESSAGE);
 				}
 			});
 		}

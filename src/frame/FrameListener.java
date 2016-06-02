@@ -5,11 +5,13 @@ import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JFrame;
+
 public class FrameListener extends MouseAdapter {
 	private Point lastPoint = null;
-	private MainFrame window = null;
+	private JFrame window = null;
 	
-	public FrameListener(MainFrame window){
+	public FrameListener(JFrame window){
 		this.window = window;
 	}
 	
