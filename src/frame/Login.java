@@ -1,7 +1,5 @@
 package frame;
 
-import com.sun.awt.AWTUtilities;
-
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.application.Application;
@@ -81,6 +79,7 @@ public class Login extends Application{
 		stage.setAlwaysOnTop(true);
 		stage.setTitle("信息学院学生党支部成员管理系统");
 		stage.initStyle(StageStyle.TRANSPARENT);
+		stage.getIcons().add(new Image("images/icon.png"));
 		stage.show();
 	}
 	
