@@ -10,7 +10,7 @@ public class BaseDao {
 	public static Connection getConnection()throws SQLException{
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/staff?characterEncoding=UTF-8", "root", "125113");
+			Connection conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/staff?characterEncoding=UTF-8", "root", "123456");
 			return conn;
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
