@@ -1,7 +1,7 @@
 # Java_HR_sys
 *****************************
 
-This is a simple HR system.
+### This is a simple HR system.
 
 * 使用Eclipse开发。
 * mysql作为数据库系统。
@@ -16,7 +16,6 @@ This is a simple HR system.
 
 ---------------------
 
-###2. 运行工程
+### 2. 运行工程
 1. 使用eclipse打开工程。
 2. 找Login.java，在此处编译运行。
-
